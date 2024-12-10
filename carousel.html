@@ -124,24 +124,26 @@
     const nextBtn = document.getElementById('nextBtn');
     let currentIndex = 0;
 
+    // Cache tile width outside the function
+    const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Including padding/margin
+
     function updateCarousel() {
-      const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Including padding/margin
+      const visibleTiles = Math.floor(document.querySelector('.carousel-container').offsetWidth / tileWidth);
       carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+      return visibleTiles;
     }
 
     nextBtn.addEventListener('click', () => {
       const totalTiles = document.querySelectorAll('.tile').length;
-      if (currentIndex < totalTiles - 3) { // Show 3 tiles at a time
-        currentIndex++;
-        updateCarousel();
-      }
+      const visibleTiles = updateCarousel();
+      currentIndex = (currentIndex + 1) % totalTiles; // Wrap around
+      updateCarousel();
     });
 
     prevBtn.addEventListener('click', () => {
-      if (currentIndex > 0) {
-        currentIndex--;
-        updateCarousel();
-      }
+      const totalTiles = document.querySelectorAll('.tile').length;
+      currentIndex = (currentIndex - 1 + totalTiles) % totalTiles; // Wrap around
+      updateCarousel();
     });
   </script>
 </body>
