@@ -22,8 +22,8 @@
 
     .carousel-container {
       position: relative;
-      width: 80%;
-      max-width: 1200px;
+      width: 60%;
+      max-width: 900px;
       overflow: hidden;
     }
 
@@ -33,7 +33,7 @@
     }
 
     .tile {
-      flex: 0 0 25%; /* 4 tiles per view */
+      flex: 0 0 33.33%; /* 3 tiles per view */
       text-align: center;
       padding: 10px;
       background-color: #ffffff;
@@ -62,19 +62,22 @@
       display: flex;
       justify-content: space-between;
       transform: translateY(-50%);
+      pointer-events: none; /* Prevent accidental blocking */
     }
 
     .nav-button {
-      background-color: #0073e6;
+      background-color: rgba(0, 0, 0, 0.5); /* Transparent black */
       color: #fff;
       border: none;
-      padding: 10px 20px;
-      cursor: pointer;
+      padding: 5px 10px;
       border-radius: 5px;
+      font-size: 12px;
+      pointer-events: all; /* Enable button interaction */
+      cursor: pointer;
     }
 
     .nav-button:hover {
-      background-color: #005bb5;
+      background-color: rgba(0, 0, 0, 0.8);
     }
   </style>
 </head>
@@ -83,30 +86,35 @@
     <div class="carousel" id="carousel">
       <!-- Tile 1 -->
       <div class="tile">
-        <img src="https://via.placeholder.com/200x150?text=Image+1" alt="Tile 1">
+        <img src="https://via.placeholder.com/300x200?text=Image+1" alt="Tile 1">
         <div class="tile-title">Title 1</div>
       </div>
       <!-- Tile 2 -->
       <div class="tile">
-        <img src="https://via.placeholder.com/200x150?text=Image+2" alt="Tile 2">
+        <img src="https://via.placeholder.com/300x200?text=Image+2" alt="Tile 2">
         <div class="tile-title">Title 2</div>
       </div>
       <!-- Tile 3 -->
       <div class="tile">
-        <img src="https://via.placeholder.com/200x150?text=Image+3" alt="Tile 3">
+        <img src="https://via.placeholder.com/300x200?text=Image+3" alt="Tile 3">
         <div class="tile-title">Title 3</div>
       </div>
       <!-- Tile 4 -->
       <div class="tile">
-        <img src="https://via.placeholder.com/200x150?text=Image+4" alt="Tile 4">
+        <img src="https://via.placeholder.com/300x200?text=Image+4" alt="Tile 4">
         <div class="tile-title">Title 4</div>
+      </div>
+      <!-- Tile 5 -->
+      <div class="tile">
+        <img src="https://via.placeholder.com/300x200?text=Image+5" alt="Tile 5">
+        <div class="tile-title">Title 5</div>
       </div>
     </div>
 
     <!-- Navigation Buttons -->
     <div class="navigation">
-      <button class="nav-button" id="prevBtn">Previous</button>
-      <button class="nav-button" id="nextBtn">Next</button>
+      <button class="nav-button" id="prevBtn">&#9664;</button>
+      <button class="nav-button" id="nextBtn">&#9654;</button>
     </div>
   </div>
 
@@ -123,7 +131,7 @@
 
     nextBtn.addEventListener('click', () => {
       const totalTiles = document.querySelectorAll('.tile').length;
-      if (currentIndex < totalTiles - 4) {
+      if (currentIndex < totalTiles - 3) { // Show 3 tiles at a time
         currentIndex++;
         updateCarousel();
       }
