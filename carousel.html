@@ -127,14 +127,13 @@
     const tiles = Array.from(document.querySelectorAll('.tile'));
 
     function cloneTiles() {
-      const carouselInner = document.getElementById('carousel');
       tiles.forEach(tile => {
         const clone = tile.cloneNode(true);
-        carouselInner.appendChild(clone);
+        carousel.appendChild(clone);
       });
       tiles.forEach(tile => {
         const clone = tile.cloneNode(true);
-        carouselInner.insertBefore(clone, carouselInner.firstChild);
+        carousel.insertBefore(clone, carousel.firstChild);
       });
     }
 
@@ -142,36 +141,41 @@
 
     let currentIndex = tiles.length;
 
-    function updateCarousel(smooth = true) {
-      carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
+    function updateCarousel() {
+      carousel.style.transition = 'transform 0.5s ease-in-out';
       carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
     }
 
-    nextBtn.addEventListener('click', () => {
+    function handleNext() {
       currentIndex++;
       updateCarousel();
-      if (currentIndex >= tiles.length * 2 - 3) {
+      if (currentIndex >= tiles.length * 2) {
         setTimeout(() => {
+          carousel.style.transition = 'none';
           currentIndex = tiles.length;
-          updateCarousel(false);
+          carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
         }, 500);
       }
-    });
+    }
 
-    prevBtn.addEventListener('click', () => {
+    function handlePrev() {
       currentIndex--;
       updateCarousel();
-      if (currentIndex < tiles.length + 3) {
+      if (currentIndex < tiles.length) {
         setTimeout(() => {
-          currentIndex = tiles.length * 2 - 4;
-          updateCarousel(false);
+          carousel.style.transition = 'none';
+          currentIndex = tiles.length * 2 - 1;
+          carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
         }, 500);
       }
-    });
+    }
+
+    nextBtn.addEventListener('click', handleNext);
+    prevBtn.addEventListener('click', handlePrev);
 
     // Initialize position to center the first view
     currentIndex = tiles.length;
-    updateCarousel(false);
+    carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
   </script>
 </body>
 </html>
