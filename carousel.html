@@ -141,41 +141,36 @@
 
     let currentIndex = tiles.length;
 
-    function updateCarousel() {
-      carousel.style.transition = 'transform 0.5s ease-in-out';
+    function updateCarousel(smooth = true) {
+      carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
       carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
     }
 
-    function handleNext() {
+    nextBtn.addEventListener('click', () => {
       currentIndex++;
       updateCarousel();
-      if (currentIndex >= tiles.length * 2) {
+      if (currentIndex >= tiles.length * 2 - 3) {
         setTimeout(() => {
-          carousel.style.transition = 'none';
           currentIndex = tiles.length;
-          carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+          updateCarousel(false);
         }, 500);
       }
-    }
+    });
 
-    function handlePrev() {
+    prevBtn.addEventListener('click', () => {
       currentIndex--;
       updateCarousel();
-      if (currentIndex < tiles.length) {
+      if (currentIndex < tiles.length + 3) {
         setTimeout(() => {
-          carousel.style.transition = 'none';
-          currentIndex = tiles.length * 2 - 1;
-          carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+          currentIndex = tiles.length * 2 - 4;
+          updateCarousel(false);
         }, 500);
       }
-    }
-
-    nextBtn.addEventListener('click', handleNext);
-    prevBtn.addEventListener('click', handlePrev);
+    });
 
     // Initialize position to center the first view
     currentIndex = tiles.length;
-    carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+    updateCarousel(false);
   </script>
 </body>
 </html>
