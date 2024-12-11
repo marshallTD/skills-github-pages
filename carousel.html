@@ -22,7 +22,7 @@
 
     .carousel-container {
       position: relative;
-      width: 100%;
+      width: 60%;
       max-width: 900px;
       overflow: hidden;
     }
@@ -39,7 +39,6 @@
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      margin: 5px;
       border-radius: 8px;
     }
 
@@ -149,7 +148,7 @@
     nextBtn.addEventListener('click', () => {
       currentIndex++;
       updateCarousel();
-      if (currentIndex >= tiles.length * 2 - 3) {
+      if (currentIndex >= tiles.length * 2) {
         setTimeout(() => {
           currentIndex = tiles.length;
           updateCarousel(false);
@@ -160,9 +159,9 @@
     prevBtn.addEventListener('click', () => {
       currentIndex--;
       updateCarousel();
-      if (currentIndex < tiles.length + 3) {
+      if (currentIndex < tiles.length) {
         setTimeout(() => {
-          currentIndex = tiles.length * 2 - 4;
+          currentIndex = tiles.length * 2 - 1;
           updateCarousel(false);
         }, 500);
       }
