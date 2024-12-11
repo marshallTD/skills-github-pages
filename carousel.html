@@ -149,35 +149,33 @@
 
     nextBtn.addEventListener('click', () => {
       currentIndex++;
+      carousel.style.transition = 'transform 0.5s ease-in-out';
       updateCarousel();
       if (currentIndex >= tiles.length * 2) {
+        currentIndex = tiles.length;
         setTimeout(() => {
           carousel.style.transition = 'none';
-          currentIndex = tiles.length;
           updateCarousel();
-          carousel.style.transition = 'transform 0.5s ease-in-out';
         }, 500);
       }
     });
 
     prevBtn.addEventListener('click', () => {
       currentIndex--;
+      carousel.style.transition = 'transform 0.5s ease-in-out';
       updateCarousel();
       if (currentIndex < tiles.length) {
+        currentIndex = tiles.length * 2 - 1;
         setTimeout(() => {
           carousel.style.transition = 'none';
-          currentIndex = tiles.length * 2 - 1;
           updateCarousel();
-          carousel.style.transition = 'transform 0.5s ease-in-out';
         }, 500);
       }
     });
 
     // Initialize position to center the first view
-    setTimeout(() => {
-      carousel.style.transition = 'none';
-      updateCarousel();
-    }, 0);
+    currentIndex = tiles.length;
+    updateCarousel();
   </script>
 </body>
 </html>
