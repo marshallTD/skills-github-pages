@@ -142,38 +142,39 @@
 
     let currentIndex = tiles.length;
 
-    function updateCarousel(smooth = true) {
-  console.log(`Before update: currentIndex = ${currentIndex}, smooth = ${smooth}`);
-  carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
-  carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
-  console.log(`After update: currentIndex = ${currentIndex}`);
-}
-
-nextBtn.addEventListener('click', () => {
-  console.log("Next button clicked");
-  currentIndex++;
-  updateCarousel();
-  if (currentIndex >= tiles.length * 2) {
-    console.log("Resetting to avoid visible jump (next)");
-    setTimeout(() => {
-      currentIndex = tiles.length;
-      updateCarousel(false);
-    }, 500);
+  function updateCarousel(smooth = true) {
+    console.log(`Before update: currentIndex = ${currentIndex}, smooth = ${smooth}`);
+    carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
+    carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+    console.log(`After update: currentIndex = ${currentIndex}`);
   }
-});
 
-prevBtn.addEventListener('click', () => {
-  console.log("Previous button clicked");
-  currentIndex--;
-  updateCarousel();
-  if (currentIndex < tiles.length) {
-    console.log("Resetting to avoid visible jump (previous)");
-    setTimeout(() => {
-      currentIndex = tiles.length * 2 - 1;
-      updateCarousel(false);
-    }, 500);
-  }
-});
+  nextBtn.addEventListener('click', () => {
+    console.log("Next button clicked");
+    currentIndex++;
+    updateCarousel();
+    if (currentIndex >= tiles.length * 2) {
+      console.log("Resetting to avoid visible jump (next)");
+      setTimeout(() => {
+        currentIndex = tiles.length;
+        updateCarousel(false);
+      }, 500);
+    }
+  });
+
+  prevBtn.addEventListener('click', () => {
+    console.log("Previous button clicked");
+    currentIndex--;
+    updateCarousel();
+    if (currentIndex < tiles.length) {
+      console.log("Resetting to avoid visible jump (previous)");
+      setTimeout(() => {
+        currentIndex = tiles.length * 2 - 1;
+        updateCarousel(false);
+      }, 500);
+    }
+  });
+
 
     // Initialize position to center the first view
     currentIndex = tiles.length;
