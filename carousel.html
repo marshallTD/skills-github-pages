@@ -20,13 +20,13 @@
       background-color: #f5f5f5;
     }
 
-     .carousel-container {
+    .carousel-container {
       position: relative;
-      width: 60%; /* Adjust to fit exactly 3 tiles */
+      width: calc(300px * 3 + 60px); /* Adjusted to fit exactly 3 tiles including padding */
       max-width: 900px;
       overflow: hidden;
-      border: 3px solid red; /* Highlight the visible container */
-      background-color: rgba(255, 255, 0, 0.2); /* Light yellow for debugging */
+      border: 3px solid red; /* Debugging border for visible container */
+      background-color: rgba(255, 255, 0, 0.2); /* Debugging background */
     }
 
     .carousel {
@@ -35,7 +35,7 @@
     }
 
     .tile {
-      flex: 0 0 calc(100% / 3); /* 3 tiles per view */
+      flex: 0 0 300px; /* Fixed tile width */
       text-align: center;
       padding: 10px;
       background-color: #ffffff;
@@ -124,7 +124,7 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Add padding for precise spacing
+    const tileWidth = 300 + 20; // Tile width + padding
     const tiles = Array.from(document.querySelectorAll('.tile'));
 
     function cloneTiles() {
