@@ -22,7 +22,7 @@
 
     .carousel-container {
       position: relative;
-      width: 60%;
+      width: 100%;
       max-width: 900px;
       overflow: hidden;
     }
@@ -33,7 +33,7 @@
     }
 
     .tile {
-      flex: 0 0 33.33%; /* 3 tiles per view */
+      flex: 0 0 calc(100% / 3); /* 3 tiles per view */
       text-align: center;
       padding: 10px;
       background-color: #ffffff;
@@ -120,69 +120,55 @@
 
   <script>
     const carousel = document.getElementById('carousel');
-const prevBtn = document.getElementById('prevBtn');
-const nextBtn = document.getElementById('nextBtn');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
 
-const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Including padding/margin
-const tiles = Array.from(document.querySelectorAll('.tile'));
+    const tileWidth = document.querySelector('.tile').offsetWidth; // Adjusted for precise tile width
+    const tiles = Array.from(document.querySelectorAll('.tile'));
 
-function cloneTiles() {
-  tiles.forEach(tile => {
-    const clone = tile.cloneNode(true);
-    carousel.appendChild(clone);
-  });
-  tiles.forEach(tile => {
-    const clone = tile.cloneNode(true);
-    carousel.insertBefore(clone, carousel.firstChild);
-  });
-}
+    function cloneTiles() {
+      tiles.forEach(tile => {
+        const clone = tile.cloneNode(true);
+        carousel.appendChild(clone);
+      });
+      tiles.forEach(tile => {
+        const clone = tile.cloneNode(true);
+        carousel.insertBefore(clone, carousel.firstChild);
+      });
+    }
 
-cloneTiles();
+    cloneTiles();
 
-let currentIndex = tiles.length;
+    let currentIndex = tiles.length;
 
-// Initialize carousel without jump
-function initializeCarousel() {
-  carousel.style.transition = 'none';
-  carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
-}
+    function updateCarousel(smooth = true) {
+      carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
+      carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+    }
 
-// Update carousel position
-function updateCarousel(smooth = true) {
-  carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
-  carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
-}
+    nextBtn.addEventListener('click', () => {
+      currentIndex++;
+      updateCarousel();
+      if (currentIndex >= tiles.length * 2 - 3) {
+        setTimeout(() => {
+          currentIndex = tiles.length;
+          updateCarousel(false);
+        }, 500);
+      }
+    });
 
-// Handle next button click
-nextBtn.addEventListener('click', () => {
-  currentIndex++;
-  updateCarousel();
+    prevBtn.addEventListener('click', () => {
+      currentIndex--;
+      updateCarousel();
+      if (currentIndex < tiles.length + 3) {
+        setTimeout(() => {
+          currentIndex = tiles.length * 2 - 4;
+          updateCarousel(false);
+        }, 500);
+      }
+    });
 
-  // Smoothly reset to the beginning
-  if (currentIndex >= tiles.length * 2) {
-    setTimeout(() => {
-      currentIndex = tiles.length;
-      updateCarousel(false); // Instantly reposition
-    }, 500);
-  }
-});
-
-// Handle previous button click
-prevBtn.addEventListener('click', () => {
-  currentIndex--;
-  updateCarousel();
-
-  // Smoothly reset to the end
-  if (currentIndex < tiles.length) {
-    setTimeout(() => {
-      currentIndex = tiles.length * 2 - 1;
-      updateCarousel(false); // Instantly reposition
-    }, 500);
-  }
-});
-
-// Initialize the carousel
-initializeCarousel();
+    // Initialize position to center the first view
     currentIndex = tiles.length;
     updateCarousel(false);
   </script>
