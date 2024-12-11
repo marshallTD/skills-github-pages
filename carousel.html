@@ -22,8 +22,8 @@
 
     .carousel-container {
       position: relative;
-      width: 70%; /* Increased to allow more spacing */
-      max-width: 1000px;
+      width: 60%; /* Adjust to fit exactly 3 tiles */
+      max-width: 900px;
       overflow: hidden;
     }
 
@@ -35,7 +35,7 @@
     .tile {
       flex: 0 0 calc(100% / 3); /* 3 tiles per view */
       text-align: center;
-      padding: 15px; /* Increased padding for better spacing */
+      padding: 10px;
       background-color: #ffffff;
       border: 1px solid #e0e0e0;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -122,7 +122,7 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    const tileWidth = document.querySelector('.tile').offsetWidth + 30; // Adjusted for precise tile width with padding
+    const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Add padding for precise spacing
     const tiles = Array.from(document.querySelectorAll('.tile'));
 
     function cloneTiles() {
