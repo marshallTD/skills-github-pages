@@ -123,7 +123,6 @@
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
 
-    // Cache tile width outside the function
     const tileWidth = document.querySelector('.tile').offsetWidth + 20; // Including padding/margin
     const tiles = Array.from(document.querySelectorAll('.tile'));
 
@@ -143,39 +142,36 @@
 
     let currentIndex = tiles.length;
 
-    function updateCarousel() {
+    function updateCarousel(smooth = true) {
+      carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
       carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
     }
 
     nextBtn.addEventListener('click', () => {
       currentIndex++;
-      carousel.style.transition = 'transform 0.5s ease-in-out';
       updateCarousel();
       if (currentIndex >= tiles.length * 2) {
-        currentIndex = tiles.length;
         setTimeout(() => {
-          carousel.style.transition = 'none';
-          updateCarousel();
+          currentIndex = tiles.length;
+          updateCarousel(false);
         }, 500);
       }
     });
 
     prevBtn.addEventListener('click', () => {
       currentIndex--;
-      carousel.style.transition = 'transform 0.5s ease-in-out';
       updateCarousel();
       if (currentIndex < tiles.length) {
-        currentIndex = tiles.length * 2 - 1;
         setTimeout(() => {
-          carousel.style.transition = 'none';
-          updateCarousel();
+          currentIndex = tiles.length * 2 - 1;
+          updateCarousel(false);
         }, 500);
       }
     });
 
     // Initialize position to center the first view
     currentIndex = tiles.length;
-    updateCarousel();
+    updateCarousel(false);
   </script>
 </body>
 </html>
