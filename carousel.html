@@ -22,8 +22,8 @@
 
     .carousel-container {
       position: relative;
-      width: calc(300px * 3 + 40px * 2); /* Adjusted to include 3 tiles + padding */
-      max-width: 900px;
+      width: calc(300px * 3 + 40px * 2); /* Adjusted to include 3 tiles + margin */
+      max-width: 960px;
       overflow: hidden;
       border: 3px solid red; /* Debugging border for visible container */
       background-color: rgba(255, 255, 0, 0.2); /* Debugging background */
@@ -144,7 +144,7 @@
 
     function updateCarousel(smooth = true) {
       carousel.style.transition = smooth ? 'transform 0.5s ease-in-out' : 'none';
-      carousel.style.transform = `translateX(-${currentIndex * tileWidth}px)`;
+      carousel.style.transform = `translateX(calc(-${currentIndex * tileWidth}px + 20px))`; // Centered
     }
 
     nextBtn.addEventListener('click', () => {
