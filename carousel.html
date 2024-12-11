@@ -173,8 +173,11 @@
       }
     });
 
-    // Initialize position
-    updateCarousel();
+    // Initialize position to center the first view
+    setTimeout(() => {
+      carousel.style.transition = 'none';
+      updateCarousel();
+    }, 0);
   </script>
 </body>
 </html>
